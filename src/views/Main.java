@@ -5,7 +5,12 @@
  */
 package views;
 
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,9 +45,25 @@ public class Main extends javax.swing.JFrame {
         input_nome_arquivo = new javax.swing.JTextField();
         label_caminho_arquivo = new javax.swing.JLabel();
         input_caminho_arquivo = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btn_choose_path = new javax.swing.JButton();
+        btn_compactar = new javax.swing.JButton();
         panel_arquivo = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
+        label_nome_arquivo1 = new javax.swing.JLabel();
+        input_nome_arquivo1 = new javax.swing.JTextField();
+        label_caminho_arquivo1 = new javax.swing.JLabel();
+        input_caminho_arquivo1 = new javax.swing.JTextField();
+        btn_choose_path1 = new javax.swing.JButton();
+        btn_compactar1 = new javax.swing.JButton();
+        label_caminho_arquivo2 = new javax.swing.JLabel();
+        input_caminho_arquivo2 = new javax.swing.JTextField();
+        btn_choose_path2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        icon = new javax.swing.JLabel();
+        select_op = new javax.swing.JComboBox<>();
+        label_select_op = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FGM Compacter");
@@ -54,9 +75,10 @@ public class Main extends javax.swing.JFrame {
 
         text_title.setFont(new java.awt.Font("Roboto Lt", 0, 24)); // NOI18N
         text_title.setForeground(new java.awt.Color(255, 255, 255));
-        text_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         text_title.setText("FGM Compacter");
         text_title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        main_panel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         panel_texto.setBackground(new java.awt.Color(137, 108, 235));
 
@@ -81,31 +103,52 @@ public class Main extends javax.swing.JFrame {
         label_caminho_arquivo.setPreferredSize(new java.awt.Dimension(150, 20));
 
         input_caminho_arquivo.setEditable(false);
+        input_caminho_arquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_caminho_arquivoActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Chose");
+        btn_choose_path.setBackground(new java.awt.Color(137, 108, 235));
+        btn_choose_path.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/open.png"))); // NOI18N
+        btn_choose_path.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_choose_pathActionPerformed(evt);
+            }
+        });
+
+        btn_compactar.setBackground(new java.awt.Color(137, 108, 235));
+        btn_compactar.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        btn_compactar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_compactar.setText("Compactar");
+        btn_compactar.setActionCommand("Compactar");
+        btn_compactar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_compactarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout p_panel_textoLayout = new javax.swing.GroupLayout(p_panel_texto);
         p_panel_texto.setLayout(p_panel_textoLayout);
         p_panel_textoLayout.setHorizontalGroup(
             p_panel_textoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(p_panel_textoLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_panel_textoLayout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(p_panel_textoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(p_panel_textoLayout.createSequentialGroup()
-                        .addGroup(p_panel_textoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(p_panel_textoLayout.createSequentialGroup()
-                                .addComponent(label_nome_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(input_nome_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(p_panel_textoLayout.createSequentialGroup()
-                                .addComponent(label_caminho_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(input_caminho_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)))
-                        .addGap(0, 468, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(p_panel_textoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(p_panel_textoLayout.createSequentialGroup()
+                            .addComponent(label_nome_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(input_nome_arquivo))
+                        .addGroup(p_panel_textoLayout.createSequentialGroup()
+                            .addComponent(label_caminho_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(input_caminho_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btn_choose_path, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_compactar, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 937, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51))
         );
         p_panel_textoLayout.setVerticalGroup(
             p_panel_textoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,14 +157,16 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(p_panel_textoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(input_nome_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_nome_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_nome_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(p_panel_textoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_caminho_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(input_caminho_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(112, Short.MAX_VALUE))
+                    .addComponent(input_caminho_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_choose_path, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btn_compactar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panel_texto.setLayer(p_panel_texto, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -141,15 +186,140 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(32, 32, 36));
 
+        label_nome_arquivo1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        label_nome_arquivo1.setForeground(new java.awt.Color(255, 255, 255));
+        label_nome_arquivo1.setText("Nome do Arquivo Compactado:");
+        label_nome_arquivo1.setPreferredSize(new java.awt.Dimension(190, 20));
+
+        input_nome_arquivo1.setToolTipText("Informe o nome do arquivo de saida");
+        input_nome_arquivo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_nome_arquivo1ActionPerformed(evt);
+            }
+        });
+        input_nome_arquivo1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                input_nome_arquivo1PropertyChange(evt);
+            }
+        });
+        input_nome_arquivo1.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
+            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
+                input_nome_arquivo1VetoableChange(evt);
+            }
+        });
+
+        label_caminho_arquivo1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        label_caminho_arquivo1.setForeground(new java.awt.Color(255, 255, 255));
+        label_caminho_arquivo1.setText("Caminho do Arquivo");
+        label_caminho_arquivo1.setPreferredSize(new java.awt.Dimension(190, 20));
+
+        input_caminho_arquivo1.setEditable(false);
+        input_caminho_arquivo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_caminho_arquivo1ActionPerformed(evt);
+            }
+        });
+
+        btn_choose_path1.setBackground(new java.awt.Color(137, 108, 235));
+        btn_choose_path1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/open.png"))); // NOI18N
+        btn_choose_path1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_choose_path1ActionPerformed(evt);
+            }
+        });
+
+        btn_compactar1.setBackground(new java.awt.Color(137, 108, 235));
+        btn_compactar1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        btn_compactar1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_compactar1.setText("Compactar");
+        btn_compactar1.setDoubleBuffered(true);
+        btn_compactar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_compactar1ActionPerformed(evt);
+            }
+        });
+
+        label_caminho_arquivo2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        label_caminho_arquivo2.setForeground(new java.awt.Color(255, 255, 255));
+        label_caminho_arquivo2.setText("Selecione o arquivo p/ compactar");
+        label_caminho_arquivo2.setPreferredSize(new java.awt.Dimension(190, 20));
+
+        input_caminho_arquivo2.setEditable(false);
+        input_caminho_arquivo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_caminho_arquivo2ActionPerformed(evt);
+            }
+        });
+        input_caminho_arquivo2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                input_caminho_arquivo2PropertyChange(evt);
+            }
+        });
+
+        btn_choose_path2.setBackground(new java.awt.Color(137, 108, 235));
+        btn_choose_path2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/open.png"))); // NOI18N
+        btn_choose_path2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_choose_path2ActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 971, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addComponent(btn_compactar1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(label_nome_arquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(input_nome_arquivo1))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(label_caminho_arquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(input_caminho_arquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btn_choose_path1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(label_caminho_arquivo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(input_caminho_arquivo2, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_choose_path2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_caminho_arquivo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_caminho_arquivo2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_choose_path2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(input_nome_arquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_nome_arquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_caminho_arquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_caminho_arquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_choose_path1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_compactar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panel_arquivo.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -167,28 +337,61 @@ public class Main extends javax.swing.JFrame {
 
         main_panel.addTab("Arquivo", panel_arquivo);
 
+        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo_title.png"))); // NOI18N
+        icon.setText("jLabel1");
+
+        select_op.setEditable(true);
+        select_op.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        select_op.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Compactar", "Descompactar" }));
+        select_op.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                select_opActionPerformed(evt);
+            }
+        });
+
+        label_select_op.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        label_select_op.setForeground(new java.awt.Color(255, 255, 255));
+        label_select_op.setText("Selecione a Operação:");
+
         javax.swing.GroupLayout main_fundoLayout = new javax.swing.GroupLayout(main_fundo);
         main_fundo.setLayout(main_fundoLayout);
         main_fundoLayout.setHorizontalGroup(
             main_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, main_fundoLayout.createSequentialGroup()
+            .addGroup(main_fundoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(main_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(text_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(main_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(main_fundoLayout.createSequentialGroup()
-                        .addComponent(main_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(icon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(text_title, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(main_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(main_fundoLayout.createSequentialGroup()
+                            .addComponent(label_select_op)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(select_op, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(main_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         main_fundoLayout.setVerticalGroup(
             main_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(main_fundoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(text_title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(main_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(main_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(main_fundoLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(text_title))
+                    .addGroup(main_fundoLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(icon, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(3, 3, 3)
+                .addGroup(main_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(select_op, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_select_op))
+                .addGap(18, 18, 18)
+                .addComponent(main_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,6 +407,141 @@ public class Main extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    public void center(Container container) {
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+        container.setLocation((screen.width - container.getWidth())/2, (screen.height - container.getHeight())/2);
+    }
+        
+    private void btn_choose_pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_choose_pathActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser;
+        String choosertitle = "";
+        chooser = new JFileChooser(); 
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle(choosertitle);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //
+        // disable the "All files" option.
+        //
+        chooser.setAcceptAllFileFilterUsed(false);
+        //    
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+          input_caminho_arquivo.setText(chooser.getSelectedFile().toString());
+        }
+        else {
+          System.out.println("No Selection ");
+        }
+    }//GEN-LAST:event_btn_choose_pathActionPerformed
+
+    private void input_caminho_arquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_caminho_arquivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_caminho_arquivoActionPerformed
+
+    private void btn_compactarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_compactarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_compactarActionPerformed
+
+    private void input_caminho_arquivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_caminho_arquivo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_caminho_arquivo1ActionPerformed
+
+    private void btn_choose_path1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_choose_path1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser;
+        String choosertitle = "";
+        chooser = new JFileChooser(); 
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle(choosertitle);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //
+        // disable the "All files" option.
+        //
+        chooser.setAcceptAllFileFilterUsed(false);
+        //    
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+          input_caminho_arquivo1.setText(chooser.getSelectedFile().toString());
+        }
+        else {
+          System.out.println("No Selection ");
+        }
+    }//GEN-LAST:event_btn_choose_path1ActionPerformed
+
+    private void btn_compactar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_compactar1ActionPerformed
+        // TODO add your handling code here:
+        if(input_caminho_arquivo2.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecione um arquivo para compactar!",
+            "Erro ao compactar", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else if(input_nome_arquivo1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira um nome para o novo arquivo compactado!",
+            "Erro ao compactar", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else if(input_caminho_arquivo1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecione o caminho para salvar o arquivo compactado!",
+            "Erro ao compactar", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_compactar1ActionPerformed
+
+    private void input_caminho_arquivo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_caminho_arquivo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_caminho_arquivo2ActionPerformed
+
+    private void btn_choose_path2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_choose_path2ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser;
+        String choosertitle = "";
+        chooser = new JFileChooser(); 
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle(choosertitle);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //
+        // disable the "All files" option.
+        //
+        chooser.setAcceptAllFileFilterUsed(false);
+        //    
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+          input_caminho_arquivo2.setText(chooser.getSelectedFile().toString());
+        }
+        else {
+          System.out.println("No Selection ");
+        }
+    }//GEN-LAST:event_btn_choose_path2ActionPerformed
+
+    private void input_caminho_arquivo2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_input_caminho_arquivo2PropertyChange
+        // TODO add your handling code here:
+         if(!input_caminho_arquivo2.getText().isEmpty()){
+            btn_compactar1.setEnabled(true);
+        }
+    }//GEN-LAST:event_input_caminho_arquivo2PropertyChange
+
+    private void input_nome_arquivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_nome_arquivo1ActionPerformed
+        // TODO add your handling code here:
+        if(!input_nome_arquivo1.getText().isEmpty()){
+            btn_compactar1.setEnabled(true);
+        }
+    }//GEN-LAST:event_input_nome_arquivo1ActionPerformed
+
+    private void input_nome_arquivo1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_input_nome_arquivo1PropertyChange
+        // TODO add your handling code here:
+        if(!input_nome_arquivo1.getText().isEmpty()){
+            btn_compactar1.setEnabled(true);
+        }
+    }//GEN-LAST:event_input_nome_arquivo1PropertyChange
+
+    private void input_nome_arquivo1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_input_nome_arquivo1VetoableChange
+        // TODO add your handling code here:
+        if(!input_nome_arquivo1.getText().isEmpty()){
+            btn_compactar1.setEnabled(true);
+        }
+    }//GEN-LAST:event_input_nome_arquivo1VetoableChange
+
+    private void select_opActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_opActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_select_opActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,18 +580,34 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea area_texto;
+    private javax.swing.JButton btn_choose_path;
+    private javax.swing.JButton btn_choose_path1;
+    private javax.swing.JButton btn_choose_path2;
+    private javax.swing.JButton btn_compactar;
+    private javax.swing.JButton btn_compactar1;
+    private javax.swing.JLabel icon;
     private javax.swing.JTextField input_caminho_arquivo;
+    private javax.swing.JTextField input_caminho_arquivo1;
+    private javax.swing.JTextField input_caminho_arquivo2;
     private javax.swing.JTextField input_nome_arquivo;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField input_nome_arquivo1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel label_caminho_arquivo;
+    private javax.swing.JLabel label_caminho_arquivo1;
+    private javax.swing.JLabel label_caminho_arquivo2;
     private javax.swing.JLabel label_nome_arquivo;
+    private javax.swing.JLabel label_nome_arquivo1;
+    private javax.swing.JLabel label_select_op;
     private javax.swing.JPanel main_fundo;
     private javax.swing.JTabbedPane main_panel;
     private javax.swing.JPanel p_panel_texto;
     private javax.swing.JDesktopPane panel_arquivo;
     private javax.swing.JDesktopPane panel_texto;
+    private javax.swing.JComboBox<String> select_op;
     private javax.swing.JLabel text_title;
     // End of variables declaration//GEN-END:variables
 }
