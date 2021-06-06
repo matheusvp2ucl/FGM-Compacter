@@ -21,15 +21,20 @@ public class FGM_Compacter {
         // lista encadeada, ja com o Node para inserir na lista o mesmo.
         for (int i = 0; i < this.texto.length(); i++) {
             char caractere = this.texto.charAt(i);
+            String newCaracter = Character.toString(caractere);
             // Função criada na lista encadeada para buscar o caracter dentro da mesma
             // Caso não exista retorna null
-            Node obj = (Node) this.frequencia.getObjectPalavra(Character.toString(caractere));
+            int ascii = (int) caractere;
+            if( ascii == 10 ){
+                newCaracter = Integer.toString(ascii);
+            }  
+            Node obj = (Node) this.frequencia.getObjectPalavra( newCaracter );
             // Se retornar null, iremos criar o caracter e inserir ja para a contagem da
             // frequencia
             // Se não retornar null, ele vai retornar o obj Node do caracter e somar mais 1
             // no atributo freq do objeto !
             if (obj == null) {
-                this.frequencia.insertEnd(new Node(Character.toString(caractere)));
+                this.frequencia.insertEnd(new Node( newCaracter ));
             } else {
                 obj.freq += 1;
             }
@@ -67,11 +72,16 @@ public class FGM_Compacter {
         // Faz a compactação das palavras, em Binario
         for (int i = 0; i < this.texto.length(); i++) {
             char caractere = this.texto.charAt(i);
-            Objeto obj = (Objeto) this.char_binarios.getLetraBinario("" + caractere);
+            String newCaracter = Character.toString(caractere);
+            int ascii = (int) caractere;
+            if( ascii == 10 ){
+                newCaracter = Integer.toString(ascii);
+            } 
+            Objeto obj = (Objeto) this.char_binarios.getLetraBinario(newCaracter);
             if (obj != null) {
                 this.textoCompactado += obj.valor;
             } else {
-                System.out.println("Letra não encontrada => " + caractere);
+                System.out.println("Letra não encontrada => " + newCaracter);
             }
         }
     }
@@ -91,7 +101,11 @@ public class FGM_Compacter {
             joinBin += binario;
             Objeto obj = (Objeto) this.MapCabecalho.getBinarioLetra(joinBin);
             if (obj != null) {
-                this.textoDescompactado += obj.chave;
+                if(obj.chave.equals("10")){
+                    this.textoDescompactado += (char) 10;
+                }else{
+                    this.textoDescompactado += obj.chave;
+                }
                 joinBin = "";
             }
         }
