@@ -25,6 +25,9 @@ public class FGM_Compacter {
             // Função criada na lista encadeada para buscar o caracter dentro da mesma
             // Caso não exista retorna null
             int ascii = (int) caractere;
+            if( ascii == 13 ){
+                continue;
+            }
             if( ascii == 10 ){
                 newCaracter = Integer.toString(ascii);
             }  
@@ -84,6 +87,12 @@ public class FGM_Compacter {
                 System.out.println("Letra não encontrada => " + newCaracter);
             }
         }
+        System.out.println(raiz.toString());
+
+        System.out.println("\n");
+        
+        System.out.println(char_binarios.toString());
+        
     }
 
     private void GeraCabecalhoLista() {

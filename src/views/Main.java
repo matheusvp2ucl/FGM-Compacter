@@ -14,6 +14,7 @@ import java.io.File;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import models.FGM_Compacter;
 import models.Save;
 
@@ -28,6 +29,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        this.setViewCompactar();
     }
 
     /**
@@ -64,7 +66,7 @@ public class Main extends javax.swing.JFrame {
         label_arquivo_caminho_CD = new javax.swing.JLabel();
         input_arquivo_a_compactar = new javax.swing.JTextField();
         btn_choose_path2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        fundo_area = new javax.swing.JScrollPane();
         area_arquivo_texto_D = new javax.swing.JTextArea();
         label_select_op = new javax.swing.JLabel();
         select_op = new javax.swing.JComboBox<>();
@@ -260,9 +262,11 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        fundo_area.setBackground(new java.awt.Color(32, 32, 36));
+
         area_arquivo_texto_D.setColumns(20);
         area_arquivo_texto_D.setRows(5);
-        jScrollPane2.setViewportView(area_arquivo_texto_D);
+        fundo_area.setViewportView(area_arquivo_texto_D);
 
         label_select_op.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         label_select_op.setForeground(new java.awt.Color(255, 255, 255));
@@ -283,7 +287,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
+                    .addComponent(fundo_area)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(label_arquivo_path_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,12 +299,10 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(label_arquivo_nome_C, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(label_arquivo_caminho_CD, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(input_arquivo_nome_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(input_arquivo_nome_arquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(input_arquivo_a_compactar, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(btn_choose_path2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
@@ -339,7 +341,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_arquivo_CD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
+                    .addComponent(fundo_area, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -460,27 +462,34 @@ public class Main extends javax.swing.JFrame {
 
         System.out.println(caminho);
         try {
+            Save.newCompactar(
+                    caminho,
+                    ".fgmm",
+                    objeto.getCabecalho(),
+                    objeto.getTextoCompactado()
+            );
+            
             Save.compactar(
                     caminho,
                     ".fgm",
                     objeto.getCabecalho(),
                     objeto.getTextoCompactado()
             );
-            
+
             // Abre o local do arquivo compactado
-            File file = new File (input_texto_caminho_arquivo.getText());
+            File file = new File(input_texto_caminho_arquivo.getText());
             Desktop desktop = Desktop.getDesktop();
             desktop.open(file);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar arquivo compactado!",
                     "Erro ao compactar", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         area_texto_mensagem.setText(null);
         input_texto_nome_arquivo.setText(null);
         input_texto_caminho_arquivo.setText(null);
-        
+
     }//GEN-LAST:event_btn_texto_CDActionPerformed
 
     private void btn_choose_path1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_choose_path1ActionPerformed
@@ -508,15 +517,87 @@ public class Main extends javax.swing.JFrame {
         if (input_arquivo_a_compactar.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um arquivo para compactar!",
                     "Erro ao compactar", JOptionPane.ERROR_MESSAGE);
-        } else if (input_arquivo_nome_arquivo.getText().isEmpty()) {
+            return;
+        }
+
+        if (input_arquivo_nome_arquivo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Insira um nome para o novo arquivo compactado!",
                     "Erro ao compactar", JOptionPane.ERROR_MESSAGE);
-        } else if (input_arquivo_caminho_arquivo.getText().isEmpty()) {
+            return;
+        }
+
+        if (input_arquivo_caminho_arquivo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione o caminho para salvar o arquivo compactado!",
                     "Erro ao compactar", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        String file_caminho = input_arquivo_a_compactar.getText();
+        String nome = input_arquivo_nome_arquivo.getText();
+        String novo_caminho = input_arquivo_caminho_arquivo.getText();
+
+        if (select_op.getSelectedItem().toString().equals("Descompactar")) {
+            
+            String[] valores = Save.readFileFGM(file_caminho);
+            FGM_Compacter objeto = new FGM_Compacter();
+            objeto.Descompactar(valores[0], valores[1]);
+
+            String caminho = novo_caminho + "\\" + nome;
+
+            try {
+                Save.salvar(caminho, ".txt", objeto.getTextoDescompactado());
+                // Abre o local do arquivo compactado
+                File file = new File(novo_caminho);
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(file);
+                
+                resetCamposArquivos();
+                
+                area_arquivo_texto_D.setText(objeto.getTextoDescompactado());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao descompactar arquivo!",
+                        "Erro ao descompactar", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } else {
+
+            String texto = Save.readFileTxt(file_caminho);
+
+            FGM_Compacter objeto = new FGM_Compacter();
+            objeto.Compactar(texto);
+
+            String caminho = novo_caminho + "\\" + nome;
+
+            System.out.println(caminho);
+            try {
+                Save.compactar(
+                        caminho,
+                        ".fgm",
+                        objeto.getCabecalho(),
+                        objeto.getTextoCompactado()
+                );
+
+                // Abre o local do arquivo compactado
+                File file = new File(novo_caminho);
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(file);
+                
+                resetCamposArquivos();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar arquivo compactado!",
+                        "Erro ao compactar", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }//GEN-LAST:event_btn_arquivo_CDActionPerformed
 
+    public void resetCamposArquivos(){
+        input_arquivo_a_compactar.setText(null);
+        input_arquivo_nome_arquivo.setText(null);
+        input_arquivo_caminho_arquivo.setText(null);
+    }
+    
     private void btn_choose_path2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_choose_path2ActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser;
@@ -524,12 +605,19 @@ public class Main extends javax.swing.JFrame {
         chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setDialogTitle(choosertitle);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        //
-        // disable the "All files" option.
-        //
+
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
         chooser.setAcceptAllFileFilterUsed(false);
-        //    
+
+        if (select_op.getSelectedItem().toString().equals("Descompactar")) {
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("FGM", "fgm");
+            chooser.addChoosableFileFilter(filter);
+        } else {
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT", "txt");
+            chooser.addChoosableFileFilter(filter);
+        }
+
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             input_arquivo_a_compactar.setText(chooser.getSelectedFile().toString());
         } else {
@@ -559,24 +647,27 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_input_arquivo_nome_arquivoVetoableChange
 
     private void select_opActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_opActionPerformed
-        if( select_op.getSelectedItem().toString().equals("Descompactar") ){
+        if (select_op.getSelectedItem().toString().equals("Descompactar")) {
             this.setViewDescompactar();
-        }else{
+        } else {
             this.setViewCompactar();
         }
     }//GEN-LAST:event_select_opActionPerformed
 
-    private void setViewDescompactar(){
+    private void setViewDescompactar() {
         label_arquivo_caminho_CD.setText("Selecione o arquivo p/ descompactar");
         btn_arquivo_CD.setText("Descompactar");
+        area_arquivo_texto_D.setVisible(true);
+        fundo_area.setVisible(true);
     }
-    
-    private void setViewCompactar(){
+
+    private void setViewCompactar() {
         label_arquivo_caminho_CD.setText("Selecione o arquivo p/ compactar");
         btn_arquivo_CD.setText("Compactar");
         area_arquivo_texto_D.setVisible(false);
+        fundo_area.setVisible(false);
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -621,6 +712,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btn_choose_path2;
     private javax.swing.JButton btn_texto_CD;
     private javax.swing.JDialog dialog_open_path;
+    private javax.swing.JScrollPane fundo_area;
     private javax.swing.JLabel icon;
     private javax.swing.JTextField input_arquivo_a_compactar;
     private javax.swing.JTextField input_arquivo_caminho_arquivo;
@@ -630,7 +722,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_arquivo_caminho_CD;
     private javax.swing.JLabel label_arquivo_nome_C;
     private javax.swing.JLabel label_arquivo_path_arquivo;
