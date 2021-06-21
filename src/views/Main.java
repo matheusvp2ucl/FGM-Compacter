@@ -462,12 +462,6 @@ public class Main extends javax.swing.JFrame {
 
         System.out.println(caminho);
         try {
-            Save.newCompactar(
-                    caminho,
-                    ".fgmm",
-                    objeto.getCabecalho(),
-                    objeto.getTextoCompactado()
-            );
             
             Save.compactar(
                     caminho,

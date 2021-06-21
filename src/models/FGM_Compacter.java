@@ -87,11 +87,6 @@ public class FGM_Compacter {
                 System.out.println("Letra não encontrada => " + newCaracter);
             }
         }
-        System.out.println(raiz.toString());
-
-        System.out.println("\n");
-        
-        System.out.println(char_binarios.toString());
         
     }
 
@@ -99,7 +94,11 @@ public class FGM_Compacter {
         String[] baseSplit = this.cabecalho.split("¨");
         for (String string : baseSplit) {
             String[] base = string.split(":");
-            this.MapCabecalho.insertEnd(new Objeto(base[0], base[1]));
+            if(  base.length != 2 ){
+                this.MapCabecalho.insertEnd(new Objeto(":", base[base.length-1]));
+            }else{
+                this.MapCabecalho.insertEnd(new Objeto(base[0], base[1]));
+            }
         }
     }
 
