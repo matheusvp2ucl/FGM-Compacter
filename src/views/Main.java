@@ -13,6 +13,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import models.FGM_Compacter;
@@ -30,6 +31,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         this.setViewCompactar();
+        setIcon();
     }
 
     /**
@@ -730,4 +732,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> select_op;
     private javax.swing.JLabel text_title;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo_title.png")));
+    }
 }
